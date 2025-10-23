@@ -15,32 +15,26 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: 100vh;
+            /* <<-- MODIFICADO: Garante que o corpo ocupe toda a altura -->> */
+            height: 100vh; 
             width: 100vw;
             overflow: hidden; 
             text-align: center;
         }
 
-        /* Estilo do cabeçalho */
-        header {
-            width: 100%;
-            padding: 8px 0;
-            background-color: #A0522D;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            font-size: 1.8em;
-            flex-shrink: 0;
-            text-transform: uppercase;
-        }
+        /* O Estilo do Cabeçalho foi removido. */
 
         /* Container Principal do Display - Define a área visível */
         #display-container {
-            flex-grow: 1;
+            /* <<-- MODIFICADO: Ocupa toda a altura restante do body -->> */
+            flex-grow: 1; 
             width: 100%; 
-            padding: 10px 0;
+            padding: 2px 0; /* Padding vertical mínimo */
             overflow: hidden; 
             box-sizing: border-box;
             position: relative;
             display: flex;
+            /* Centraliza verticalmente o conteúdo (as duplas de cards) */
             align-items: center; 
         }
         
@@ -50,9 +44,7 @@
             flex-direction: row;
             align-items: center; 
             height: 100%;
-            /* Ajusta o início da rolagem (Opcional, pode remover se não for necessário) */
             margin-left: 0; 
-            
             transition: transform 0.1s linear; 
         }
 
@@ -67,28 +59,26 @@
             padding: 0; 
             box-sizing: border-box;
             
-            /* <<-- MODIFICAÇÃO: Largura revertida para 800px -->> */
-            width: 800px; 
-            
-            /* <<-- MODIFICAÇÃO: MARGEM NEGATIVA para sobrepor o espaço preto -->> */
-            /* Isso fará com que o próximo grupo comece 100px antes do final do grupo atual */
-            margin-right: -100px; 
+            width: 650px; 
+            margin-right: -200px; /* Margem negativa para sobreposição horizontal */
             
             flex-shrink: 0; 
         }
 
         /* Estilo do Card Principal da Aula */
         .schedule-card {
-            /* <<-- MODIFICAÇÃO: Largura revertida para 400px -->> */
             width: 400px; 
             
-            padding: 10px;
-            margin: 10px 0; 
+            /* Padding vertical mínimo para achatamento */
+            padding: 2px 8px; 
+            
+            /* Margem vertical mínima entre os cards */
+            margin: 2px 0; 
             
             background-color: #1a1a1a;
             border: 3px solid #FFD700;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+            border-radius: 6px; 
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); 
             box-sizing: border-box;
             flex-shrink: 0; 
             text-align: center; 
@@ -96,11 +86,11 @@
 
         /* Destaque para a Disciplina (Maior e Central) */
         .discipline-title {
-            font-size: 2.0em; /* Voltando para 2.0em */
+            font-size: 1.5em; 
             font-weight: 900;
             color: #4CAF50;
             line-height: 1.1;
-            margin-bottom: 8px;
+            margin-bottom: 3px; 
             text-transform: uppercase;
             
             word-break: break-word; 
@@ -112,9 +102,9 @@
             display: flex;
             justify-content: space-around;
             width: 100%;
-            margin-top: 10px;
+            margin-top: 3px; 
             border-top: 1px solid #555;
-            padding-top: 8px;
+            padding-top: 3px; 
         }
 
         .meta-box {
@@ -124,13 +114,13 @@
         }
 
         .meta-label {
-            font-size: 0.9em;
+            font-size: 0.7em; 
             color: #bbb;
-            margin-bottom: 3px;
+            margin-bottom: 1px; 
         }
 
         .meta-value {
-            font-size: 1.2em;
+            font-size: 0.9em; 
             font-weight: bold;
             color: #fff;
         }
@@ -144,10 +134,6 @@
     </style>
 </head>
 <body>
-
-    <header>
-        QUADRO DE AULAS - EM/UFOP
-    </header>
 
     <div id="display-container">
         <div id="display-area">
@@ -275,7 +261,7 @@
                 });
                 
                 displayAll(scheduleData);
-                document.querySelector('header').textContent = 'QUADRO DE AULAS - EM/UFOP';
+                /* Linha de remoção do texto do cabeçalho */
                 
                 startAutoScroll();
 

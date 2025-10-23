@@ -16,6 +16,7 @@
             flex-direction: column;
             align-items: center;
             height: 100vh;
+            width: 100vw;
             overflow: hidden; 
             text-align: center;
         }
@@ -23,53 +24,87 @@
         /* Estilo do cabeçalho */
         header {
             width: 100%;
-            padding: 8px 0; /* Reduzido */
+            padding: 8px 0;
             background-color: #A0522D;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            font-size: 1.8em; /* Reduzido de 2.2em para 1.8em */
+            font-size: 1.8em;
             flex-shrink: 0;
+            text-transform: uppercase;
         }
 
-        /* Container Principal do Display */
+        /* Container Principal do Display - Define a área visível */
         #display-container {
             flex-grow: 1;
-            width: 90%;
-            max-width: 1400px;
-            padding: 10px 0; /* Reduzido de 15px para 10px */
+            width: 100%; 
+            padding: 10px 0;
             overflow: hidden; 
             box-sizing: border-box;
             position: relative;
+            display: flex;
+            align-items: center; 
         }
         
         /* Área de exibição das aulas (O elemento que será animado) */
         #display-area {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
+            flex-direction: row;
+            align-items: center; 
+            height: 100%;
+            /* Ajusta o início da rolagem (Opcional, pode remover se não for necessário) */
+            margin-left: 0; 
+            
             transition: transform 0.1s linear; 
+        }
+
+        /* Estilo do Grupo de Aulas */
+        .class-group {
+            display: flex;
+            flex-direction: column; 
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            
+            padding: 0; 
+            box-sizing: border-box;
+            
+            /* <<-- MODIFICAÇÃO: Largura revertida para 800px -->> */
+            width: 800px; 
+            
+            /* <<-- MODIFICAÇÃO: MARGEM NEGATIVA para sobrepor o espaço preto -->> */
+            /* Isso fará com que o próximo grupo comece 100px antes do final do grupo atual */
+            margin-right: -100px; 
+            
+            flex-shrink: 0; 
         }
 
         /* Estilo do Card Principal da Aula */
         .schedule-card {
-            width: 100%;
-            padding: 10px; /* Reduzido de 15px para 10px */
-            margin-bottom: 15px; /* Reduzido de 20px para 15px */
+            /* <<-- MODIFICAÇÃO: Largura revertida para 400px -->> */
+            width: 400px; 
+            
+            padding: 10px;
+            margin: 10px 0; 
+            
             background-color: #1a1a1a;
             border: 3px solid #FFD700;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
             box-sizing: border-box;
+            flex-shrink: 0; 
+            text-align: center; 
         }
 
         /* Destaque para a Disciplina (Maior e Central) */
         .discipline-title {
-            font-size: 2.0em; /* Reduzido de 2.5em para 2.0em */
+            font-size: 2.0em; /* Voltando para 2.0em */
             font-weight: 900;
             color: #4CAF50;
             line-height: 1.1;
-            margin-bottom: 8px; /* Reduzido */
+            margin-bottom: 8px;
             text-transform: uppercase;
+            
+            word-break: break-word; 
+            overflow-wrap: break-word; 
         }
 
         /* Container para Sala e Horário */
@@ -77,9 +112,9 @@
             display: flex;
             justify-content: space-around;
             width: 100%;
-            margin-top: 10px; /* Reduzido */
+            margin-top: 10px;
             border-top: 1px solid #555;
-            padding-top: 8px; /* Reduzido */
+            padding-top: 8px;
         }
 
         .meta-box {
@@ -89,35 +124,38 @@
         }
 
         .meta-label {
-            font-size: 0.9em; /* Reduzido de 1em para 0.9em */
+            font-size: 0.9em;
             color: #bbb;
             margin-bottom: 3px;
         }
 
         .meta-value {
-            font-size: 1.2em; /* Reduzido de 1.5em para 1.2em */
+            font-size: 1.2em;
             font-weight: bold;
             color: #fff;
+        }
+
+        .status-message {
+            font-size: 1.5em;
+            color: #FF5733;
+            margin-top: 50px;
+            width: 100%;
         }
     </style>
 </head>
 <body>
 
     <header>
-        QUADRO DE AULAS - ESCOLA DE MINAS / UFOP
+        QUADRO DE AULAS - EM/UFOP
     </header>
 
     <div id="display-container">
         <div id="display-area">
-            </div>
+        </div>
     </div>
 
     <script>
         const DELIMITER = ';';
-        
-        // =========================================================================
-        // SEU CONTEÚDO CSV
-        // =========================================================================
         const CSV_DATA = `SALA;07:30 / 08:20;08:20 / 09:10;09:20 / 10:10;10:10 / 11:00;11:10 / 12:00;12:00 / 12:50;13:30 / 14:20;14:20 / 15:10;15:20 / 16:10;16:10 / 17:00;17:10 / 18:00;18:00 / 18:50;19:00 / 19:50;19:50 / 20:40;21:00 / 21:50;21:50 / 22:40
 1;;URB202 - T11: GEOTECNIA I - MECÂNICA DOS SOLOS;URB202 - T11: GEOTECNIA I - MECÂNICA DOS SOLOS;CV260 - T11: SUPERESTRUTURAS DE RODOVIAS E AEROPORTOS;CV260 - T11: SUPERESTRUTURAS DE RODOVIAS E AEROPORTOS;;MEC110 - T11: ACIONAMENTOS HIDRÁULICOS E PNEUMÁTICOS;MEC110 - T11: ACIONAMENTOS HIDRÁULICOS E PNEUMÁTICOS;MEC117 - T11: REFRIGERAÇÃO E AR CONDICIONADO;MEC117 - T11: REFRIGERAÇÃO E AR CONDICIONADO;MEC417 - T11: COMBUSTÃO;MEC417 - T11: COMBUSTÃO;ARQ102 - T11: TEORIA E HISTÓRIA DA ARQUITETURA E DO URBANISMO II;ARQ102 - T11: TEORIA E HISTÓRIA DA ARQUITETURA E DO URBANISMO II;ARQ102 - T11: TEORIA E HISTÓRIA DA ARQUITETURA E DO URBANISMO II;ARQ102 - T11: TEORIA E HISTÓRIA DA ARQUITETURA E DO URBANISMO II
 2;;;MET131 - T11: METALURGIA DOS NÃO-FERROSOS I;MET131 - T11: METALURGIA DOS NÃO-FERROSOS I;MET131 - T11: METALURGIA DOS NÃO-FERROSOS I;;PRO609 - T11: ENGENHARIA SOCIAL;PRO609 - T11: ENGENHARIA SOCIAL;MEC170 - T11: SISTEMAS FLUIDOS-DINÂMICOS;MEC170 - T11: SISTEMAS FLUIDOS-DINÂMICOS;URB124 - T11: MECÂNICA DOS FLUIDOS APLICADA;URB124 - T11: MECÂNICA DOS FLUIDOS APLICADA;PRO721 - T11: ENGENHARIA DA MANUFATURA;PRO721 - T11: ENGENHARIA DA MANUFATURA;ARQ103 - T22: PROJETO ARQUITETÔNICO DE CONSTRUÇÕES METÁLICAS I;ARQ103 - T22: PROJETO ARQUITETÔNICO DE CONSTRUÇÕES METÁLICAS I
@@ -146,11 +184,13 @@
 26;;PRO530 - T11: MODELAGEM MATEMÁTICA EM SEQUENCIAMENTO DA PRODUÇÃO;PRO530 - T11: MODELAGEM MATEMÁTICA EM SEQUENCIAMENTO DA PRODUÇÃO;;;;;;PRO607 - T11: INOVACAO E EMPREENDEDORISMO;PRO607 - T11: INOVACAO E EMPREENDEDORISMO;;CIV190 - T11: TRABALHO DE CONCLUSAO DE CURSO I;CIV190 - T11: TRABALHO DE CONCLUSAO DE CURSO I;;PRO314 - T11: GERENCIA DE RECURSOS HUMANOS;PRO314 - T11: GERENCIA DE RECURSOS HUMANOS
 27;;;;;;;URB104 - T11: PROJETO URBANÍSTICO I - PARCELAMENTO DE SOLO URBANO;URB104 - T11: PROJETO URBANÍSTICO I - PARCELAMENTO DE SOLO URBANO;URB129 - T11: PROJETO DE VIAS URBANAS;URB129 - T11: PROJETO DE VIAS URBANAS;;;;;CAT169 - T21: ACIONAMENTOS ELÉTRICOS (P);CAT169 - T21: ACIONAMENTOS ELÉTRICOS (P)
 `;
-        // =========================================================================
         
         let scrollPosition = 0;
-        const SCROLL_SPEED = 2.0; // Velocidade de rolagem em pixels por quadro
-        const PAUSE_TIME_MS = 2000; // Tempo de pausa no topo e no final (4 segundos)
+        let animationFrameId = null; 
+        
+        const SCROLL_SPEED = 2.0; 
+        const PAUSE_TIME_MS = 3000; 
+        const CARDS_PER_GROUP = 2;
 
         function parseCSV(csv) {
             const rows = csv.trim().split('\n');
@@ -186,29 +226,36 @@
         function displayAll(scheduleData) {
             const displayArea = document.getElementById('display-area');
             displayArea.innerHTML = '';
-            let htmlContent = '';
-
-            scheduleData.forEach(item => {
-                htmlContent += `
-                    <div class="schedule-card">
-                        <div class="discipline-title">${item.subject}</div>
-                        <div class="metadata-container">
-                            <div class="meta-box">
-                                <span class="meta-label">SALA</span>
-                                <span class="meta-value">${item.room}</span>
-                            </div>
-                            <div class="meta-box">
-                                <span class="meta-label">HORÁRIO</span>
-                                <span class="meta-value">${item.time}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            displayArea.innerHTML = htmlContent;
             
             if (scheduleData.length === 0) {
-                 displayArea.innerHTML = '<div class="status-message">ERRO: Nenhuma aula válida encontrada.</div>';
+                displayArea.innerHTML = '<div class="status-message">ERRO: Nenhuma aula válida encontrada.</div>';
+                return;
+            }
+
+            for (let i = 0; i < scheduleData.length; i += CARDS_PER_GROUP) {
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'class-group';
+
+                for (let j = 0; j < CARDS_PER_GROUP && (i + j) < scheduleData.length; j++) {
+                    const item = scheduleData[i + j];
+                    const cardHtml = `
+                        <div class="schedule-card">
+                            <div class="discipline-title">${item.subject}</div>
+                            <div class="metadata-container">
+                                <div class="meta-box">
+                                    <span class="meta-label">SALA</span>
+                                    <span class="meta-value">${item.room}</span>
+                                </div>
+                                <div class="meta-box">
+                                    <span class="meta-label">HORÁRIO</span>
+                                    <span class="meta-value">${item.time}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    groupDiv.innerHTML += cardHtml;
+                }
+                displayArea.appendChild(groupDiv);
             }
         }
         
@@ -216,7 +263,6 @@
             let scheduleData = parseCSV(csv);
             
             if (scheduleData.length > 0) {
-                // Ordenação por Horário
                 scheduleData.sort((a, b) => {
                     const timeA = a.time.split(' / ')[0];
                     const timeB = b.time.split(' / ')[0];
@@ -227,62 +273,71 @@
                     if (a.room > b.room) return 1;
                     return 0;
                 });
-            
+                
                 displayAll(scheduleData);
                 document.querySelector('header').textContent = 'QUADRO DE AULAS - EM/UFOP';
                 
-                // Inicia a rolagem suave após a exibição dos dados
                 startAutoScroll();
 
             } else {
-                 document.getElementById('display-area').innerHTML = '<div class="status-message">ERRO: Falha ao processar os dados CSV.</div>';
+                document.getElementById('display-area').innerHTML = '<div class="status-message">ERRO: Falha ao processar os dados CSV.</div>';
             }
         }
         
-        // =========================================================================
-        // LÓGICA DE ROLAGEM AUTOMÁTICA (requestAnimationFrame)
-        // =========================================================================
-
         function autoScroll() {
             const displayContainer = document.getElementById('display-container');
             const displayArea = document.getElementById('display-area');
             
-            const maxScroll = displayArea.offsetHeight - displayContainer.offsetHeight;
+            const contentWidth = displayArea.scrollWidth; 
+            const containerWidth = displayContainer.offsetWidth;
+
+            const maxScroll = contentWidth - containerWidth;
 
             if (maxScroll <= 0) {
-                // Se o conteúdo couber, não rola.
+                displayArea.style.transform = `translateX(0px)`;
                 return;
             }
-
+            
             scrollPosition += SCROLL_SPEED;
 
             if (scrollPosition >= maxScroll) {
-                // Chegou ao final. Pausa no final.
+                scrollPosition = maxScroll; 
+                displayArea.style.transform = `translateX(-${scrollPosition}px)`;
+
                 setTimeout(() => {
-                    scrollPosition = 0; // Volta para o topo
-                    displayArea.style.transform = `translateY(0px)`;
-                    startAutoScroll(); // Reinicia o ciclo
+                    scrollPosition = 0; 
+                    displayArea.style.transition = 'none'; 
+                    displayArea.style.transform = `translateX(0px)`;
+                    
+                    setTimeout(() => {
+                        displayArea.style.transition = `transform 0.1s linear`;
+                        animationFrameId = requestAnimationFrame(autoScroll);
+                    }, 50); 
+
                 }, PAUSE_TIME_MS);
                 
-                scrollPosition = maxScroll; 
+                return; 
             }
             
-            displayArea.style.transform = `translateY(-${scrollPosition}px)`;
+            displayArea.style.transform = `translateX(-${scrollPosition}px)`;
             
-            if (scrollPosition < maxScroll) {
-                requestAnimationFrame(autoScroll);
-            }
+            animationFrameId = requestAnimationFrame(autoScroll);
         }
 
         function startAutoScroll() {
-            // Pausa inicial no topo antes de começar a rolar
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+            
+            const displayArea = document.getElementById('display-area');
+            scrollPosition = 0; 
+            displayArea.style.transform = `translateX(0px)`;
+
             setTimeout(() => {
-                 scrollPosition = 0;
-                 requestAnimationFrame(autoScroll);
+                animationFrameId = requestAnimationFrame(autoScroll);
             }, PAUSE_TIME_MS);
         }
 
-        // Execução do script após o DOM estar totalmente carregado.
         window.onload = function() {
             processAndDisplay(CSV_DATA);
         };

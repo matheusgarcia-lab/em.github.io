@@ -10,23 +10,22 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #000;
-            color: #fff;
+            /* <<-- MODIFICADO: Fundo agora é branco -->> */
+            background-color: #fff; 
+            /* <<-- MODIFICADO: Cor do texto principal agora é preto/escuro -->> */
+            color: #000; 
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* <<-- MODIFICADO: Garante que o corpo ocupe toda a altura -->> */
-            height: 100vh; 
+            height: 100vh;
             width: 100vw;
             overflow: hidden; 
             text-align: center;
         }
 
-        /* O Estilo do Cabeçalho foi removido. */
-
         /* Container Principal do Display - Define a área visível */
         #display-container {
-            /* <<-- MODIFICADO: Ocupa toda a altura restante do body -->> */
+            /* Ocupa toda a altura restante do body */
             flex-grow: 1; 
             width: 100%; 
             padding: 2px 0; /* Padding vertical mínimo */
@@ -75,10 +74,14 @@
             /* Margem vertical mínima entre os cards */
             margin: 2px 0; 
             
-            background-color: #1a1a1a;
-            border: 3px solid #FFD700;
+            /* <<-- MODIFICADO: Fundo do card cinza claro -->> */
+            background-color: #f0f0f0; 
+            
+            border: 3px solid #FFD700; /* Borda amarela mantida */
             border-radius: 6px; 
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); 
+            /* <<-- MODIFICADO: Sombra ajustada para fundo claro -->> */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+            
             box-sizing: border-box;
             flex-shrink: 0; 
             text-align: center; 
@@ -88,7 +91,9 @@
         .discipline-title {
             font-size: 1.5em; 
             font-weight: 900;
-            color: #4CAF50;
+            /* <<-- MODIFICADO: Cor do título ajustada para contraste -->> */
+            color: #008000; 
+            
             line-height: 1.1;
             margin-bottom: 3px; 
             text-transform: uppercase;
@@ -114,15 +119,17 @@
         }
 
         .meta-label {
+            /* <<-- MODIFICADO: Cor do label ajustada -->> */
+            color: #555; 
             font-size: 0.7em; 
-            color: #bbb;
             margin-bottom: 1px; 
         }
 
         .meta-value {
+            /* <<-- MODIFICADO: Cor do valor ajustada -->> */
+            color: #000; 
             font-size: 0.9em; 
             font-weight: bold;
-            color: #fff;
         }
 
         .status-message {
@@ -142,6 +149,10 @@
 
     <script>
         const DELIMITER = ';';
+        
+        // =========================================================================
+        // SEU CONTEÚDO CSV
+        // =========================================================================
         const CSV_DATA = `SALA;07:30 / 08:20;08:20 / 09:10;09:20 / 10:10;10:10 / 11:00;11:10 / 12:00;12:00 / 12:50;13:30 / 14:20;14:20 / 15:10;15:20 / 16:10;16:10 / 17:00;17:10 / 18:00;18:00 / 18:50;19:00 / 19:50;19:50 / 20:40;21:00 / 21:50;21:50 / 22:40
 1;;URB202 - T11: GEOTECNIA I - MECÂNICA DOS SOLOS;URB202 - T11: GEOTECNIA I - MECÂNICA DOS SOLOS;CV260 - T11: SUPERESTRUTURAS DE RODOVIAS E AEROPORTOS;CV260 - T11: SUPERESTRUTURAS DE RODOVIAS E AEROPORTOS;;MEC110 - T11: ACIONAMENTOS HIDRÁULICOS E PNEUMÁTICOS;MEC110 - T11: ACIONAMENTOS HIDRÁULICOS E PNEUMÁTICOS;MEC117 - T11: REFRIGERAÇÃO E AR CONDICIONADO;MEC117 - T11: REFRIGERAÇÃO E AR CONDICIONADO;MEC417 - T11: COMBUSTÃO;MEC417 - T11: COMBUSTÃO;ARQ102 - T11: TEORIA E HISTÓRIA DA ARQUITETURA E DO URBANISMO II;ARQ102 - T11: TEORIA E HISTÓRIA DA ARQUITETURA E DO URBANISMO II;ARQ102 - T11: TEORIA E HISTÓRIA DA ARQUITETURA E DO URBANISMO II;ARQ102 - T11: TEORIA E HISTÓRIA DA ARQUITETURA E DO URBANISMO II
 2;;;MET131 - T11: METALURGIA DOS NÃO-FERROSOS I;MET131 - T11: METALURGIA DOS NÃO-FERROSOS I;MET131 - T11: METALURGIA DOS NÃO-FERROSOS I;;PRO609 - T11: ENGENHARIA SOCIAL;PRO609 - T11: ENGENHARIA SOCIAL;MEC170 - T11: SISTEMAS FLUIDOS-DINÂMICOS;MEC170 - T11: SISTEMAS FLUIDOS-DINÂMICOS;URB124 - T11: MECÂNICA DOS FLUIDOS APLICADA;URB124 - T11: MECÂNICA DOS FLUIDOS APLICADA;PRO721 - T11: ENGENHARIA DA MANUFATURA;PRO721 - T11: ENGENHARIA DA MANUFATURA;ARQ103 - T22: PROJETO ARQUITETÔNICO DE CONSTRUÇÕES METÁLICAS I;ARQ103 - T22: PROJETO ARQUITETÔNICO DE CONSTRUÇÕES METÁLICAS I
@@ -261,7 +272,6 @@
                 });
                 
                 displayAll(scheduleData);
-                /* Linha de remoção do texto do cabeçalho */
                 
                 startAutoScroll();
 

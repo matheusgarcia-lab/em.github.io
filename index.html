@@ -1,344 +1,147 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AULAS ESCOLA DE MINAS</title>
+    <title>Convite de Formatura</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Estilos de tela cheia para TV */
+        /* Configurações Gerais */
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            /* <<-- MODIFICADO: Fundo agora é branco -->> */
-            background-color: #fff; 
-            /* <<-- MODIFICADO: Cor do texto principal agora é preto/escuro -->> */
-            color: #000; 
+            background-color: #ffffff; /* Página toda branca */
+            color: #333333;
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden; 
+            min-height: 100vh;
+        }
+
+        /* Cabeçalho */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            width: 100%;
+        }
+
+        .arte-vetorizada {
+            max-width: 180px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.2rem; /* Tamanho razoável para título */
+            font-weight: 600;
+            margin: 10px 0;
+            color: #1a1a1a;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Corpo Central */
+        main {
+            flex: 1;
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
             text-align: center;
         }
 
-        /* Container Principal do Display - Define a área visível */
-        #display-container {
-            /* Ocupa toda a altura restante do body */
-            flex-grow: 1; 
-            width: 100%; 
-            padding: 2px 0; /* Padding vertical mínimo */
-            overflow: hidden; 
-            box-sizing: border-box;
+        .info-container {
+            margin-bottom: 40px;
+        }
+
+        .info-container h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 20px;
+            color: #444;
+        }
+
+        .info-container p {
+            font-size: 1.2rem; /* Tamanho razoável para texto */
+            font-weight: 300;
+            margin: 5px 0 20px 0;
+        }
+
+        /* Mapa */
+        .map-responsive {
+            overflow: hidden;
+            padding-bottom: 56.25%;
             position: relative;
-            display: flex;
-            /* Centraliza verticalmente o conteúdo (as duplas de cards) */
-            align-items: center; 
+            height: 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-top: 30px;
         }
-        
-        /* Área de exibição das aulas (O elemento que será animado) */
-        #display-area {
-            display: flex;
-            flex-direction: row;
-            align-items: center; 
+
+        .map-responsive iframe {
+            left: 0;
+            top: 0;
             height: 100%;
-            margin-left: 0; 
-            transition: transform 0.1s linear; 
-        }
-
-        /* Estilo do Grupo de Aulas */
-        .class-group {
-            display: flex;
-            flex-direction: column; 
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            
-            padding: 0; 
-            box-sizing: border-box;
-            
-            width: 650px; 
-            margin-right: -200px; /* Margem negativa para sobreposição horizontal */
-            
-            flex-shrink: 0; 
-        }
-
-        /* Estilo do Card Principal da Aula */
-        .schedule-card {
-            width: 400px; 
-            
-            /* Padding vertical mínimo para achatamento */
-            padding: 2px 8px; 
-            
-            /* Margem vertical mínima entre os cards */
-            margin: 2px 0; 
-            
-            /* <<-- MODIFICADO: Fundo do card cinza claro -->> */
-            background-color: #f0f0f0; 
-            
-            border: 3px solid #FFD700; /* Borda amarela mantida */
-            border-radius: 6px; 
-            /* <<-- MODIFICADO: Sombra ajustada para fundo claro -->> */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
-            
-            box-sizing: border-box;
-            flex-shrink: 0; 
-            text-align: center; 
-        }
-
-        /* Destaque para a Disciplina (Maior e Central) */
-        .discipline-title {
-            font-size: 1.5em; 
-            font-weight: 900;
-            /* <<-- MODIFICADO: Cor do título ajustada para contraste -->> */
-            color: #008000; 
-            
-            line-height: 1.1;
-            margin-bottom: 3px; 
-            text-transform: uppercase;
-            
-            word-break: break-word; 
-            overflow-wrap: break-word; 
-        }
-
-        /* Container para Sala e Horário */
-        .metadata-container {
-            display: flex;
-            justify-content: space-around;
             width: 100%;
-            margin-top: 3px; 
-            border-top: 1px solid #555;
-            padding-top: 3px; 
+            position: absolute;
         }
 
-        .meta-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .meta-label {
-            /* <<-- MODIFICADO: Cor do label ajustada -->> */
-            color: #555; 
-            font-size: 0.7em; 
-            margin-bottom: 1px; 
-        }
-
-        .meta-value {
-            /* <<-- MODIFICADO: Cor do valor ajustada -->> */
-            color: #000; 
-            font-size: 0.9em; 
-            font-weight: bold;
-        }
-
-        .status-message {
-            font-size: 1.5em;
-            color: #FF5733;
-            margin-top: 50px;
+        /* Rodapé */
+        footer {
+            padding: 40px 20px;
+            text-align: center;
             width: 100%;
+            border-top: 1px solid #eeeeee;
+        }
+
+        footer p {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #666;
+        }
+
+        /* Ajustes para telas menores */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .info-container p { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
 
-    <div id="display-container">
-        <div id="display-area">
-        </div>
-    </div>
-
-    <script>
-        const DELIMITER = ';';
+    <header>
+        <img src="https://static.vecteezy.com/ti/vetor-gratis/t2/6998422-graduacao-cap-icone-design-ilustracao-graduacao-cap-icone-isolado-em-fundo-branco-da-graduacao-e-educacao-colecao-graduacao-cap-sinal-simples-gratis-vetor.jpg" 
+             alt="Capelo de Formatura" 
+             class="arte-vetorizada">
         
-        // =========================================================================
-        // SEU CONTEÚDO CSV
-        // =========================================================================
-        const CSV_DATA = `SALA;07:30 / 08:20;08:20 / 09:10;09:20 / 10:10;10:10 / 11:00;11:10 / 12:00;12:00 / 12:50;13:30 / 14:20;14:20 / 15:10;15:20 / 16:10;16:10 / 17:00;17:10 / 18:00;18:00 / 18:50;19:00 / 19:50;19:50 / 20:40;21:00 / 21:50;21:50 / 22:40
-1;;URB202 - T11: GEOTECNIA I - MECÂNICA DOS SOLOS;URB202 - T11: GEOTECNIA I - MECÂNICA DOS SOLOS;CV260 - T11: SUPERESTRUTURAS DE RODOVIAS E AEROPORTOS;CV260 - T11: SUPERESTRUTURAS DE RODOVIAS E AEROPORTOS;;MEC110 - T11: ACIONAMENTOS HIDRÁULICOS E PNEUMÁTICOS;MEC110 - T11: ACIONAMENTOS HIDRÁULICOS E PNEUMÁTICOS;MEC117 - T11: REFRIGERAÇÃO E AR CONDICIONADO;MEC117 - T11: REFRIGERAÇÃO E AR CONDICIONADO;MEC417 - T11: COMBUSTÃO;MEC417 - T11: COMBUSTÃO;ARQ102 - T11: TEORIA E HISTÓRIA DA ARQUITETURA E DO URBANISMO II;ARQ102 - T11: TEORIA E HISTÓRIA DA ARQUITETURA E DO URBANISMO II;ARQ102 - T11: TEORIA E HISTÓRIA DA ARQUITETURA E DO URBANISMO II;ARQ102 - T11: TEORIA E HISTÓRIA DA ARQUITETURA E DO URBANISMO II
-2;;;MET131 - T11: METALURGIA DOS NÃO-FERROSOS I;MET131 - T11: METALURGIA DOS NÃO-FERROSOS I;MET131 - T11: METALURGIA DOS NÃO-FERROSOS I;;PRO609 - T11: ENGENHARIA SOCIAL;PRO609 - T11: ENGENHARIA SOCIAL;MEC170 - T11: SISTEMAS FLUIDOS-DINÂMICOS;MEC170 - T11: SISTEMAS FLUIDOS-DINÂMICOS;URB124 - T11: MECÂNICA DOS FLUIDOS APLICADA;URB124 - T11: MECÂNICA DOS FLUIDOS APLICADA;PRO721 - T11: ENGENHARIA DA MANUFATURA;PRO721 - T11: ENGENHARIA DA MANUFATURA;ARQ103 - T22: PROJETO ARQUITETÔNICO DE CONSTRUÇÕES METÁLICAS I;ARQ103 - T22: PROJETO ARQUITETÔNICO DE CONSTRUÇÕES METÁLICAS I
-3;ARQ208 - T51: GEOMETRIA DESCRITIVA;ARQ208 - T51: GEOMETRIA DESCRITIVA;ARQ208 - T51: GEOMETRIA DESCRITIVA;;ARQ209 - T51: DESENHO TÉCNICO;;ARQ209 - T52: DESENHO TÉCNICO;ARQ209 - T52: DESENHO TÉCNICO;CIV621 - T11: CONSTRUÇÕES METÁLICAS I;CIV621 - T11: CONSTRUÇÕES METÁLICAS I;;;ARQ205 - T11: REPRESENTAÇÃO GRÁFICA;ARQ205 - T11: REPRESENTAÇÃO GRÁFICA;ARQ205 - T11: REPRESENTAÇÃO GRÁFICA;ARQ205 - T11: REPRESENTAÇÃO GRÁFICA
-4;;;;;;;MEC119 - T21: MECÂNICA DOS FLUIDOS;MEC119 - T21: MECÂNICA DOS FLUIDOS;PRO236 - T11: ENGENHARIA DE PROCESSOS CONTÍNUOS;PRO236 - T11: ENGENHARIA DE PROCESSOS CONTÍNUOS;;;ARQ702 - T11: DESENHO MECÂNICO;ARQ702 - T11: DESENHO MECÂNICO;ARQ702 - T11: DESENHO MECÂNICO;ARQ702 - T11: DESENHO MECÂNICO
-5;;;;;;;ARQ105 - T11: ARQUITETURA BRASILEIRA II;ARQ105 - T11: ARQUITETURA BRASILEIRA II;URB103 - T11: GEOPROCESSAMENTO EM AMBIENTES URBANOS;URB103 - T11: GEOPROCESSAMENTO EM AMBIENTES URBANOS;URB103 - T11: GEOPROCESSAMENTO EM AMBIENTES URBANOS;URB103 - T11: GEOPROCESSAMENTO EM AMBIENTES URBANOS;ARQ132 - T21|T22: PROJETO ARQUITETÔNICO III;ARQ132 - T21|T22: PROJETO ARQUITETÔNICO III;ARQ134 - T21: PROJETO ARQUITETÔNICO DE CONSTRUÇÕES METÁLICAS I;ARQ134 - T21: PROJETO ARQUITETÔNICO DE CONSTRUÇÕES METÁLICAS I
-6;;;;;;;MET130 - T11: SIDERURGIA II;MET130 - T11: SIDERURGIA II;MET130 - T11: SIDERURGIA II;AMB106 - T11: TRATAMENTO DE EFLUENTES GASOSOS;AMB106 - T11: TRATAMENTO DE EFLUENTES GASOSOS;;ARQ180 - T21|T22: PROJETO INTEGRADO DE ARQUITETURA, URBANISMO E PAISAGISMO;ARQ180 - T21|T22: PROJETO INTEGRADO DE ARQUITETURA, URBANISMO E PAISAGISMO;ARQ180 - T21|T22: PROJETO INTEGRADO DE ARQUITETURA, URBANISMO E PAISAGISMO;ARQ180 - T21|T22: PROJETO INTEGRADO DE ARQUITETURA, URBANISMO E PAISAGISMO
-7;;;;;;;MEC620 - T11: TERMODINÂMICA APLICADA;MEC620 - T11: TERMODINÂMICA APLICADA;MEC134 - T11: TERMODINÂMICA TÉCNICA;MEC134 - T11: TERMODINÂMICA TÉCNICA;;;;;;
-8;;;;;;;CV208 - T11: TEORIA DAS ESTRUTURAS II;CV208 - T11: TEORIA DAS ESTRUTURAS II;CIV208 - T11: TEORIA DAS ESTRUTURAS I;;;;;;;
-9;;;;;;;CS0113 - T33: INTRODUÇÃO À SOCIOLOGIA;CS0113 - T33: INTRODUÇÃO À SOCIOLOGIA;MEC112 - T11: VIBRAÇÕES DE SISTEMAS MECÂNCOS;MEC112 - T11: VIBRAÇÕES DE SISTEMAS MECÂNCOS;;;;;;
-10;;URB121 - T11: SISTEMAS URBANOS;URB121 - T11: SISTEMAS URBANOS;CIV105 - T11: RESISTÊNCIA DOS MATERIAIS I;CIV105 - T11: RESISTÊNCIA DOS MATERIAIS I;;AMB113 - T31|T32|T33: FUNDAMENTOS DE BIOLOGIA CELULAR;AMB113 - T31|T32|T33: FUNDAMENTOS DE BIOLOGIA CELULAR;AMB113 - T31|T32|T33: FUNDAMENTOS DE BIOLOGIA CELULAR;CIV106 - T11: RESISTÊNCIA DOS MATERIAIS I;CIV106 - T11: RESISTÊNCIA DOS MATERIAIS II;;CIV622 - T11: CONSTRUÇÕES METÁLICAS II;CIV622 - T11: CONSTRUÇÕES METÁLICAS II;MEC142 - T11: ACIONAMENTO FLUIDOMECÂNCOS;MEC142 - T11: ACIONAMENTO FLUIDOMECÂNCOS
-11;;;;;;;CAT141 - T11: TEORIA DE CONTROLE I;CAT141 - T11: TEORIA DE CONTROLE I;MEC104 - T11: ELEMENTOS DE MÁQUINAS I;MEC104 - T11: ELEMENTOS DE MÁQUINAS I;;;AMB110 - T33: ENGENHARIA AMBIENTAL BÁSICA;AMB110 - T33: ENGENHARIA AMBIENTAL BÁSICA;AMB110 - T33: ENGENHARIA AMBIENTAL BÁSICA;
-12;;;;;;;ARQ240 - T11: TOPOGRAFIA;ARQ240 - T11: TOPOGRAFIA;ARQ240 - T11: TOPOGRAFIA;ARQ240 - T11: TOPOGRAFIA;;AMB392 - T11: ESTÁGIO CURRICULAR;AMB392 - T11: ESTÁGIO CURRICULAR;;MEC109 - T11: PROCESSO DE CONFORMAÇÃO MECÂNICA;MEC109 - T11: PROCESSO DE CONFORMAÇÃO MECÂNICA
-13;;;;MET159 - T11: ENSAIOS MECÂNCOS DE MATERIAIS;MET159 - T11: ENSAIOS MECÂNCOS DE MATERIAIS;;MET154 - T11: ESTRUTURA DE MATERIAIS;MET154 - T11: ESTRUTURA DE MATERIAIS;MET144 - T11: SELEÇÃO DE MATERIAIS;MET144 - T11: SELEÇÃO DE MATERIAIS;;;;;;
-14;;MET269 - T11: TRATAMENTO TÉRMICO DOS METAIS;MET269 - T11: TRATAMENTO TÉRMICO DOS METAIS;;;;CV266 - T11: CONSTRUÇÕES METÁLICAS I;CV266 - T11: CONSTRUÇÕES METÁLICAS I;CIV266 - T11: CONSTRUÇÕES METÁLICAS I;;MET140 - T11: TECNOLOGIA E METALURGIA DA SOLDAGEM;MET140 - T11: TECNOLOGIA E METALURGIA DA SOLDAGEM;;;;
-15;;ARQ210 - T11: DESENHO ARQUITETÔNICO;ARQ210 - T11: DESENHO ARQUITETÔNICO;ARQ210 - T11: DESENHO ARQUITETÔNICO;ARQ210 - T11: DESENHO ARQUITETÔNICO;;ARQ155 - T21|T22: PROJETO DE RESTAURAÇÃO‑REVITALIZAÇÃO ARQUITETÔNICA;ARQ155 - T21|T22: PROJETO DE RESTAURAÇÃO‑REVITALIZAÇÃO ARQUITETÔNICA;ARQ135 - 121|22: PROJETO DE RESTAURAÇÃO-REVITALIZACAO ARQUITETONICA;ARQ135 - 121|22: PROJETO DE RESTAURAÇÃO-REVITALIZACAO ARQUITETONICA;;;ARQ111 - T11: DESENHO DE ARQUITETURA I;ARQ111 - T11: DESENHO DE ARQUITETURA I;ARQ111 - T11: DESENHO DE ARQUITETURA I;ARQ111 - T11: DESENHO DE ARQUITETURA I
-16;;;;ARQ700 - T33: EXPRESSÃO GRÁFICA;ARQ700 - T33: EXPRESSÃO GRÁFICA;;ARQ700 - T31: EXPRESSÃO GRÁFICA;ARQ700 - T31: EXPRESSÃO GRÁFICA;;;;;ARQ160 - T21: PROJETO INTEGRADO DE ARQUITETURA, URBANSMO E PAISAGISMO;ARQ160 - T21: PROJETO INTEGRADO DE ARQUITETURA, URBANSMO E PAISAGISMO;ARQ160 - T21: PROJETO INTEGRADO DE ARQUITETURA, URBANSMO E PAISAGISMO;ARQ160 - T21: PROJETO INTEGRADO DE ARQUITETURA, URBANSMO E PAISAGISMO
-17;;MEC174 - T32: TRANSFERÊNCIA DE CALOR E MASSA I;MEC174 - T32: TRANSFERÊNCIA DE CALOR E MASSA I;URB116 - T11: PROJETO INTEGRADO DE ENGENHARIA URBANA I;URB116 - T11: PROJETO INTEGRADO DE ENGENHARIA URBANA I;;PRO242 - T43: ECONOMIA II;PRO242 - T43: ECONOMIA II;PRO808  -T11: ENGENHARIA DO PRODUTO;PRO808  -T11: ENGENHARIA DO PRODUTO;;;MEC403 - T11: PROJETOS MECANICOS;MEC403 - T11: PROJETOS MECANICOS;MEC406 - T11: MECANICA DE VEICULOS;MEC406 - T11: MECANICA DE VEICULOS
-18;;URB141 - T11: HIDROGEOLOGIA APLICADA;URB141 - T11: HIDROGEOLOGIA APLICADA;URB141 - T11: HIDROGEOLOGIA APLICADA;URB141 - T11: HIDROGEOLOGIA APLICADA;;CIV624 - T11: PATOLOGIA DAS CONSTRUÇÕES;CIV624 - T11: PATOLOGIA DAS CONSTRUÇÕES;CIV624 - T11: PATOLOGIA DAS CONSTRUCOES;CIV624 - T11: PATOLOGIA DAS CONSTRUCOES;PRO490 - T11: PROJETO FINAL DE GRADUACAO;PRO490 - T11: PROJETO FINAL DE GRADUACAO;MEC124 - T11: FENOMENOS DE TRANSPORTE;MEC124 - T11: FENOMENOS DE TRANSPORTE;MEC174 - T31: TRANSFERENCIA E CALOR E MASSA I M;MEC174 - T31: TRANSFERENCIA E CALOR E MASSA I M
-19;;URB108 - T11: GEOTECNIA III - MECÂNICA DAS ROCHAS;URB108 - T11: GEOTECNIA III - MECÂNICA DAS ROCHAS;URB126 - T11: MÉTODOS COMPUTACIONAIS EM ENGENHARIA;URB126 - T11: MÉTODOS COMPUTACIONAIS EM ENGENHARIA;;PRO708 - T11: PESQUISA OPERACIONAL II;PRO708 - T11: PESQUISA OPERACIONAL II;MEC174 - T33: TRANSFERENCIA E CALOR E MASSA I M;MEC174 - T33: TRANSFERENCIA E CALOR E MASSA I M;;;PRO910 - T21: PLANEJAMENTO E GESTAO DA PRODUCAO;PRO910 - T21: PLANEJAMENTO E GESTAO DA PRODUCAO;PRO571 - T11: MODELAGEM ESTOCASTICA E SIMULACAO AVANCADA;PRO571 - T11: MODELAGEM ESTOCASTICA E SIMULACAO AVANCADA
-20;;;MEC171 - T11: SISTEMAS TÉRMICOS;MEC171 - T11: SISTEMAS TÉRMICOS;;;URB128 - T11: PROJETO INTEGRADO DE ENGENHARIA URBANA II;URB128 - T11: PROJETO INTEGRADO DE ENGENHARIA URBANA II;URB416 - T11: GEOTECNIA APLICADA A ARQUITETURA E AO URBANISMO;URB416 - T11: GEOTECNIA APLICADA A ARQUITETURA E AO URBANISMO;CAT169 - T22: ACIONAMENTOS ELETRICOS (P);CAT169 - T22: ACIONAMENTOS ELETRICOS (P);AMB111 - T21: ENGENHARIA AMBIENTAL BÁSICA M;AMB111 - T21: ENGENHARIA AMBIENTAL BÁSICA M;PRO807 - T21: PLANEJAMENTO E CONTROLE DA PRODUÇÃO;PRO807 - T21: PLANEJAMENTO E CONTROLE DA PRODUÇÃO
-22;;CIV224 - T21|T22: HIDRÁULICA I;CIV224 - T21|T22: HIDRÁULICA I;;;;;;PRO718 - T11: ERGONOMIA E TRABALHO;PRO718 - T11: ERGONOMIA E TRABALHO;PRO374 - T11: GESTAO DA CADEIA DE SUPRIMENTOS;PRO374 - T11: GESTAO DA CADEIA DE SUPRIMENTOS;MEC105 - T11: MAQUINAS DE FLUXO E SISTEMAS HIDRAULICOS;MEC105 - T11: MAQUINAS DE FLUXO E SISTEMAS HIDRAULICOS;PRO314 - T11: GERENCIA DE RECURSOS HUMANOS;PRO314 - T11: GERENCIA DE RECURSOS HUMANOS
-23;;CIV209 - T11: TEORIA DAS ESTRUTURAS II;CIV209 - T11: TEORIA DAS ESTRUTURAS II;CIV226 - T11: HIDROLOGIA APLICADA;CIV226 - T11: HIDROLOGIA APLICADA;;CIV230 - T11: ELEMENTOS DE CALCULO ESTRUTURAL;CIV230 - T11: ELEMENTOS DE CALCULO ESTRUTURAL;;;;;PRO701 - T11: METODOS MATEMATICOS DA ENGENHARIA I;PRO701 - T11: METODOS MATEMATICOS DA ENGENHARIA I;MEC610 - T11: CONFORTO AMBIENTAL;MEC610 - T11: CONFORTO AMBIENTAL
-24;;;;DIR751 - T11: DIREITO AMBIENTAL;DIR751 - T11: DIREITO AMBIENTAL;;PRO724 - T11: LOGÍSTICA;PRO724 - T11: LOGÍSTICA;CIV107 - T21: RESISTENCIA DOS MATERIAIS E ESTRUTURAS;CIV107 - T21: RESISTENCIA DOS MATERIAIS E ESTRUTURAS;PRO106 - T11: SEMINARIOS E EDTUDOS EM ENGENHARIA DE PRODUCAO;PRO106 - T11: SEMINARIOS E EDTUDOS EM ENGENHARIA DE PRODUCAO;PRO717 - T11: ENGENHARIA DO TRABALHO;PRO717 - T11: ENGENHARIA DO TRABALHO;MEC119 - T22: MECANICA DOS FLUIDOS;MEC119 - T22: MECANICA DOS FLUIDOS
-25;;CIV218 - T11: PONTES I;CIV218 - T11: PONTES I;;;;CIV271 - T21|T22: HIDRÁULICA;CIV271 - T21|T22: HIDRÁULICA;CIV271 - T21|22: HIDRAULICA;CIV217 - T11: CONCRETO ARMADO II;CIV217 - T11: CONCRETO ARMADO II;;PRO608 - T11: DESENVOLVIMENTO TECNOLOGICO E SUSTENTABILIDADE;PRO608 - T11: DESENVOLVIMENTO TECNOLOGICO E SUSTENTABILIDADE;;
-26;;PRO530 - T11: MODELAGEM MATEMÁTICA EM SEQUENCIAMENTO DA PRODUÇÃO;PRO530 - T11: MODELAGEM MATEMÁTICA EM SEQUENCIAMENTO DA PRODUÇÃO;;;;;;PRO607 - T11: INOVACAO E EMPREENDEDORISMO;PRO607 - T11: INOVACAO E EMPREENDEDORISMO;;CIV190 - T11: TRABALHO DE CONCLUSAO DE CURSO I;CIV190 - T11: TRABALHO DE CONCLUSAO DE CURSO I;;PRO314 - T11: GERENCIA DE RECURSOS HUMANOS;PRO314 - T11: GERENCIA DE RECURSOS HUMANOS
-27;;;;;;;URB104 - T11: PROJETO URBANÍSTICO I - PARCELAMENTO DE SOLO URBANO;URB104 - T11: PROJETO URBANÍSTICO I - PARCELAMENTO DE SOLO URBANO;URB129 - T11: PROJETO DE VIAS URBANAS;URB129 - T11: PROJETO DE VIAS URBANAS;;;;;CAT169 - T21: ACIONAMENTOS ELÉTRICOS (P);CAT169 - T21: ACIONAMENTOS ELÉTRICOS (P)
-`;
-        
-        let scrollPosition = 0;
-        let animationFrameId = null; 
-        
-        const SCROLL_SPEED = 2.0; 
-        const PAUSE_TIME_MS = 3000; 
-        const CARDS_PER_GROUP = 2;
+        <h1>Formatura Dork, Ti-Mão, Krretel, Epotchuco, Titio-avô, Ligeiro</h1>
+    </header>
 
-        function parseCSV(csv) {
-            const rows = csv.trim().split('\n');
-            const flatSchedule = [];
-            if (rows.length < 2) return flatSchedule;
+    <main>
+        <section class="info-container">
+            <div>
+                <h2>Local</h2>
+                <p>Sindicato dos Trabalhadores Tec. Adm. da UFOP</p>
+            </div>
 
-            const headers = rows[0].split(DELIMITER).map(h => h.trim().replace(/"/g, ''));
-            const timeHeaders = headers.slice(1);
+            <div>
+                <h2>Horário</h2>
+                <p>12:30h</p>
+            </div>
 
-            for (let i = 1; i < rows.length; i++) {
-                const row = rows[i].trim();
-                if (row === '') continue;
+            <div>
+                <h2>Localização</h2>
+                <div class="map-responsive">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3741.0505191262973!2d-43.5134606!3d-20.3396116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjDCsDIwJzIyLjYiUyA0M8KwMzAnNDguNSJX!5e0!3m2!1spt-BR!2sbr!4v1700000000000" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </section>
+    </main>
 
-                const cols = row.split(DELIMITER).map(c => c.trim().replace(/"/g, ''));
-                const room = cols[0];
-                
-                for (let j = 1; j < cols.length; j++) {
-                    const subject = cols[j];
-                    const time = timeHeaders[j - 1];
-
-                    if (subject && subject.trim() !== '') {
-                        flatSchedule.push({
-                            time: time,
-                            room: room,
-                            subject: subject
-                        });
-                    }
-                }
-            }
-            return flatSchedule;
-        }
-
-        function displayAll(scheduleData) {
-            const displayArea = document.getElementById('display-area');
-            displayArea.innerHTML = '';
-            
-            if (scheduleData.length === 0) {
-                displayArea.innerHTML = '<div class="status-message">ERRO: Nenhuma aula válida encontrada.</div>';
-                return;
-            }
-
-            for (let i = 0; i < scheduleData.length; i += CARDS_PER_GROUP) {
-                const groupDiv = document.createElement('div');
-                groupDiv.className = 'class-group';
-
-                for (let j = 0; j < CARDS_PER_GROUP && (i + j) < scheduleData.length; j++) {
-                    const item = scheduleData[i + j];
-                    const cardHtml = `
-                        <div class="schedule-card">
-                            <div class="discipline-title">${item.subject}</div>
-                            <div class="metadata-container">
-                                <div class="meta-box">
-                                    <span class="meta-label">SALA</span>
-                                    <span class="meta-value">${item.room}</span>
-                                </div>
-                                <div class="meta-box">
-                                    <span class="meta-label">HORÁRIO</span>
-                                    <span class="meta-value">${item.time}</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    groupDiv.innerHTML += cardHtml;
-                }
-                displayArea.appendChild(groupDiv);
-            }
-        }
-        
-        function processAndDisplay(csv) {
-            let scheduleData = parseCSV(csv);
-            
-            if (scheduleData.length > 0) {
-                scheduleData.sort((a, b) => {
-                    const timeA = a.time.split(' / ')[0];
-                    const timeB = b.time.split(' / ')[0];
-                    
-                    if (timeA < timeB) return -1;
-                    if (timeA > timeB) return 1;
-                    if (a.room < b.room) return -1;
-                    if (a.room > b.room) return 1;
-                    return 0;
-                });
-                
-                displayAll(scheduleData);
-                
-                startAutoScroll();
-
-            } else {
-                document.getElementById('display-area').innerHTML = '<div class="status-message">ERRO: Falha ao processar os dados CSV.</div>';
-            }
-        }
-        
-        function autoScroll() {
-            const displayContainer = document.getElementById('display-container');
-            const displayArea = document.getElementById('display-area');
-            
-            const contentWidth = displayArea.scrollWidth; 
-            const containerWidth = displayContainer.offsetWidth;
-
-            const maxScroll = contentWidth - containerWidth;
-
-            if (maxScroll <= 0) {
-                displayArea.style.transform = `translateX(0px)`;
-                return;
-            }
-            
-            scrollPosition += SCROLL_SPEED;
-
-            if (scrollPosition >= maxScroll) {
-                scrollPosition = maxScroll; 
-                displayArea.style.transform = `translateX(-${scrollPosition}px)`;
-
-                setTimeout(() => {
-                    scrollPosition = 0; 
-                    displayArea.style.transition = 'none'; 
-                    displayArea.style.transform = `translateX(0px)`;
-                    
-                    setTimeout(() => {
-                        displayArea.style.transition = `transform 0.1s linear`;
-                        animationFrameId = requestAnimationFrame(autoScroll);
-                    }, 50); 
-
-                }, PAUSE_TIME_MS);
-                
-                return; 
-            }
-            
-            displayArea.style.transform = `translateX(-${scrollPosition}px)`;
-            
-            animationFrameId = requestAnimationFrame(autoScroll);
-        }
-
-        function startAutoScroll() {
-            if (animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
-            }
-            
-            const displayArea = document.getElementById('display-area');
-            scrollPosition = 0; 
-            displayArea.style.transform = `translateX(0px)`;
-
-            setTimeout(() => {
-                animationFrameId = requestAnimationFrame(autoScroll);
-            }, PAUSE_TIME_MS);
-        }
-
-        window.onload = function() {
-            processAndDisplay(CSV_DATA);
-        };
-        
-    </script>
+    <footer>
+        <p>Muito obrigado desde já pela sua presença.</p>
+    </footer>
 
 </body>
 </html>

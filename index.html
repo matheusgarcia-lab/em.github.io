@@ -49,6 +49,7 @@
             max-width: 800px;
             padding: 20px;
             text-align: center;
+            box-sizing: border-box;
         }
 
         .info-container {
@@ -87,12 +88,55 @@
             position: absolute;
         }
 
+        /* Seção de Convites */
+        .convites-container {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px dashed #eeeeee;
+        }
+
+        .convites-container h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+        }
+
+        .convites-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-convite {
+            display: inline-block;
+            width: 100%;
+            max-width: 300px;
+            padding: 12px 20px;
+            background-color: #333333;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-convite:hover {
+            background-color: #555555;
+            transform: translateY(-2px);
+        }
+
         /* Rodapé */
         footer {
             padding: 40px 20px;
             text-align: center;
             width: 100%;
             border-top: 1px solid #eeeeee;
+            margin-top: 20px;
+            box-sizing: border-box;
         }
 
         footer p {
@@ -105,6 +149,7 @@
         @media (max-width: 600px) {
             h1 { font-size: 1.8rem; }
             .info-container p { font-size: 1rem; }
+            .btn-convite { font-size: 1rem; }
         }
     </style>
 </head>
@@ -122,7 +167,12 @@
         <section class="info-container">
             <div>
                 <h2>Local</h2>
-                <p>Sindicato dos Trabalhadores Tec. Adm. da UFOP</p>
+                <p>Buffet Sabor e Arte</p>
+            </div>
+
+            <div>
+                <h2>Endereço</h2>
+                <p>Rua Domingos Mendes, 33 - Saramenha</p>
             </div>
 
             <div>
@@ -133,8 +183,20 @@
             <div>
                 <h2>Localização</h2>
                 <div class="map-responsive">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d167.22397218880164!2d-43.5077429504008!3d-20.390171383414906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa40ae6943cffe9%3A0xe38ca83ff80a43d5!2sSindicato%20dos%20Trabalhadores%20Tec.%20Adm.%20da%20UFOP!5e1!3m2!1spt-BR!2sus!4v1768350815789!5m2!1spt-BR!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d3384.149514748702!2d-43.5182083!3d-20.3990898!3m2!1i1024!2i768!4f13.1!2m1!1sRua%20Domingos%20Mendes%2033%20Saramenha!5e1!3m2!1spt-BR!2sbr!4v1773547647863!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
+            </div>
+        </section>
+
+        <section class="convites-container">
+            <h2>----- CONVITES -----</h2>
+            <div class="convites-links">
+                <a href="https://ibb.co/gZgdXPHk" target="_blank" class="btn-convite">Dork</a>
+                <a href="https://ibb.co/Q79h3mw9" target="_blank" class="btn-convite">Ti-Mão</a>
+                <a href="https://ibb.co/Rk0Pnxf8" target="_blank" class="btn-convite">K-rretel</a>
+                <a href="https://ibb.co/sp5LDSyz" target="_blank" class="btn-convite">Epotchuco</a>
+                <a href="https://ibb.co/38t3RnX" target="_blank" class="btn-convite">Titio-Avô</a>
+                <a href="https://ibb.co/Ps0B4tpc" target="_blank" class="btn-convite">Ligeiro</a>
             </div>
         </section>
     </main>
@@ -145,6 +207,3 @@
 
 </body>
 </html>
-
-
-

@@ -46,27 +46,40 @@
         main {
             flex: 1;
             width: 100%;
-            max-width: 800px;
+            max-width: 900px; /* Aumentei um pouco para caberem as duas colunas confortavelmente */
             padding: 20px;
             text-align: center;
             box-sizing: border-box;
         }
 
-        .info-container {
+        /* Container dos Locais Lado a Lado */
+        .locais-wrapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 30px; /* Espaço entre as duas colunas */
             margin-bottom: 40px;
         }
 
-        .info-container h2 {
-            font-size: 1.5rem;
+        .local-coluna {
+            flex: 1;
+            background-color: #fcfcfc; /* Fundo levemente cinza para destacar os blocos */
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Sombra suave */
+        }
+
+        .local-coluna h2 {
+            font-size: 1.3rem;
             font-weight: 600;
-            margin-top: 20px;
+            margin-top: 15px;
             color: #444;
         }
 
-        .info-container p {
-            font-size: 1.2rem; /* Tamanho razoável para texto */
+        .local-coluna p {
+            font-size: 1.1rem;
             font-weight: 300;
-            margin: 5px 0 20px 0;
+            margin: 5px 0 15px 0;
         }
 
         /* Mapa */
@@ -77,7 +90,7 @@
             height: 0;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         .map-responsive iframe {
@@ -145,10 +158,13 @@
             color: #666;
         }
 
-        /* Ajustes para telas menores */
-        @media (max-width: 600px) {
+        /* Ajustes para telas menores (Celular) */
+        @media (max-width: 768px) {
+            .locais-wrapper {
+                flex-direction: column; /* Empilha as colunas no celular */
+                gap: 20px;
+            }
             h1 { font-size: 1.8rem; }
-            .info-container p { font-size: 1rem; }
             .btn-convite { font-size: 1rem; }
         }
     </style>
@@ -164,30 +180,49 @@
     </header>
 
     <main>
-        <section class="info-container">
-            <div>
-                <h2>Local</h2>
-                <p>Buffet Sabor e Arte</p>
-            </div>
-
-            <div>
-                <h2>Endereço</h2>
-                <p>Rua Domingos Mendes, 33 - Saramenha</p>
-            </div>
-
-            <div>
-                <h2>Horário</h2>
-                <p>12:30h</p>
-            </div>
-
-            <div>
-                <h2>Localização</h2>
-                <div class="map-responsive">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d3384.149514748702!2d-43.5182083!3d-20.3990898!3m2!1i1024!2i768!4f13.1!2m1!1sRua%20Domingos%20Mendes%2033%20Saramenha!5e1!3m2!1spt-BR!2sbr!4v1773547647863!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <section class="locais-wrapper">
+            
+            <div class="local-coluna">
+                <div>
+                    <h2>QUADRINHO ( 03/04 SEXTA-FEIRA )</h2>
+                    <p>República Gaiola de Ouro</p>
+                </div>
+                <div>
+                    <h2>Endereço</h2>
+                    <p>Rua Conde de Bobadela, 167 - Centro</p>
+                </div>
+                <div>
+                    <h2>Horário</h2>
+                    <p>14:00h</p>
+                </div>
+                <div>
+                    <div class="map-responsive">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d184.6540379377991!2d-43.505428305537855!3d-20.385307984120907!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa40ae1ca406a9b%3A0xdbca798c38414b80!2sRep%C3%BAblica%20Gaiola%20de%20Ouro!5e1!3m2!1spt-BR!2sbr!4v1773705368656!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
                 </div>
             </div>
-        </section>
 
+            <div class="local-coluna">
+                <div>
+                    <h2>LOCAL DA FESTA ( 04/04 SÁBADO )</h2>
+                    <p>Espaço aluminas ( antigo Sabor e Arte )</p>
+                </div>
+                <div>
+                    <h2>Endereço</h2>
+                    <p>Rua Domingos Mendes, 33 - Saramenha</p>
+                </div>
+                <div>
+                    <h2>Horário</h2>
+                    <p>12:00h</p>
+                </div>
+                <div>
+                    <div class="map-responsive">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d429.97623882875394!2d-43.517273733736886!3d-20.399207558315076!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa40af4a32452d9%3A0x8a7cca8d569d68d8!2sBuffet%20Sabor%20e%20Arte!5e1!3m2!1spt-BR!2sbr!4v1773705486019!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+
+        </section>
         <section class="convites-container">
             <h2>----- CONVITES -----</h2>
             <div class="convites-links">
